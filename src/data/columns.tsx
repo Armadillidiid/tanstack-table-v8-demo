@@ -43,8 +43,8 @@ export const columns = [
     header: "",
     cell: (info) => (
       <a
-        href={`${location.pathname}/${info.getValue()}/`}
-        className="bg-primary text-primary-foreground hover:bg-primary/90 inline-flex min-w-fit
+        href={`${location.pathname}${info.getValue()}/`}
+        className="bg-primary p-2 text-white text-primary-foreground hover:bg-primary/90 inline-flex min-w-fit
         items-center justify-center rounded-md text-sm font-medium ring-offset-background 
         transition-colors focus-visible:outline-none focus-visible:ring-2 
         focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none 
