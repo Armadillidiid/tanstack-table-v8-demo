@@ -3,13 +3,12 @@ import { JobItem } from "../hooks/types";
 
 const columnHelper = createColumnHelper<JobItem>();
 
-
 export const columns = [
   columnHelper.accessor("position", {
     id: "position",
     header: "Job Position",
     cell: (info) => (
-      <div className="flex gap-6">
+      <div className="flex flex-col gap-6">
         <span className="text-[#1A1A1A] text-xl font-bold leading-[30px]">
           {info.getValue()}
         </span>
@@ -37,7 +36,7 @@ export const columns = [
   columnHelper.accessor("date_posted", {
     id: "date_posted",
     header: "Date Posted",
-    cell: (info) => new Date(info.getValue()),
+    cell: (info) => info.getValue(),
   }),
   columnHelper.accessor("id", {
     id: "view_job",
