@@ -4,6 +4,7 @@ import {
   getCoreRowModel,
   useReactTable,
 } from "@tanstack/react-table";
+import styles from "./index.module.css"
 
 type TableProps<TData> = {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -20,14 +21,14 @@ export const DataTable = <TData,>({ columns, data }: TableProps<TData>) => {
 
   return (
     <>
-      <table className="mx-auto">
+      <table className={styles.table}>
         <thead>
           {table.getHeaderGroups().map((headerGroup) => (
             <tr key={headerGroup.id}>
               {headerGroup.headers.map((header) => (
                 <th
                   key={header.id}
-                  className="bg-gray-100 px-2.5 py-[14px] text-left 2xl:px-3 2xl:py-4"
+                  className={styles.tableHead}
                 >
                   {header.isPlaceholder
                     ? null
@@ -46,7 +47,7 @@ export const DataTable = <TData,>({ columns, data }: TableProps<TData>) => {
               {row.getVisibleCells().map((cell) => (
                 <td
                   key={cell.id}
-                  className="border-b border-gray-200 px-2.5 py-[25px] 2xl:px-3 2xl:py-7"
+                  className={styles.tableBody}
                 >
                   {flexRender(cell.column.columnDef.cell, cell.getContext())}
                 </td>
