@@ -1,5 +1,6 @@
 import { createColumnHelper } from "@tanstack/react-table";
 import { JobItem } from "../hooks/types";
+import { formatDateToDDMMYYYY } from "../utils/formatDate";
 
 const columnHelper = createColumnHelper<JobItem>();
 
@@ -36,7 +37,7 @@ export const columns = [
   columnHelper.accessor("date_posted", {
     id: "date_posted",
     header: "Date Posted",
-    cell: (info) => info.getValue(),
+    cell: (info) => formatDateToDDMMYYYY(info.getValue()),
   }),
   columnHelper.accessor("id", {
     id: "view_job",
