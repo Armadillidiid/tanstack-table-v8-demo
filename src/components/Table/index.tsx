@@ -12,7 +12,7 @@ type TableProps<TData> = {
   data: TData[];
 };
 
-export const DataTable = <TData,>({ columns, data }: TableProps<TData>) => {
+export const Table = <TData,>({ columns, data }: TableProps<TData>) => {
   const table = useReactTable({
     data,
     columns,
