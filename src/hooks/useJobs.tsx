@@ -33,7 +33,7 @@ const useJobs = () => {
       try {
         await new Promise((resolve) => setTimeout(resolve, 1000));
         const data = {
-          results: generateJobItems(15),
+          results: generateJobItems(100),
         };
         if (!ignore) {
           setQuery({ data, isPending: false, isError: false });
