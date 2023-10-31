@@ -1,13 +1,16 @@
 import { createColumnHelper } from "@tanstack/react-table";
 import { JobItem } from "../hooks/types";
 import { formatDateToDDMMYYYY } from "../utils/formatDate";
+import TableHeader from "../components/Table/TableHeader";
 
 const columnHelper = createColumnHelper<JobItem>();
 
 export const columns = [
   columnHelper.accessor("position", {
     id: "position",
-    header: "Job Position",
+    header: ({ column }) => (
+      <TableHeader title="Job position" column={column} />
+    ),
     cell: (info) => (
       <div className="flex flex-col gap-6">
         <span className="text-[#1A1A1A] text-xl font-bold leading-[30px]">
@@ -21,22 +24,22 @@ export const columns = [
   }),
   columnHelper.accessor("team", {
     id: "team",
-    header: "Team",
+    header: ({ column }) => <TableHeader title="Team" column={column} />,
     cell: (info) => info.getValue(),
   }),
   columnHelper.accessor("location", {
     id: "location",
-    header: "Location",
+    header: ({ column }) => <TableHeader title="Location" column={column} />,
     cell: (info) => info.getValue(),
   }),
   columnHelper.accessor("job_type", {
     id: "job_type",
-    header: "Job Type",
+    header: ({ column }) => <TableHeader title="Job Type" column={column} />,
     cell: (info) => info.getValue(),
   }),
   columnHelper.accessor("date_posted", {
     id: "date_posted",
-    header: "Date Posted",
+    header: ({ column }) => <TableHeader title="Date Posted" column={column} />,
     cell: (info) => formatDateToDDMMYYYY(info.getValue()),
   }),
   columnHelper.accessor("id", {
@@ -54,5 +57,6 @@ export const columns = [
         View Job
       </a>
     ),
+    enableSorting: false, // explicitly disable sorting for this column
   }),
 ];

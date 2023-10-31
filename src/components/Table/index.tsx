@@ -1,8 +1,11 @@
+import { useState } from "react";
 import {
   ColumnDef,
+  SortingState,
   flexRender,
   getCoreRowModel,
   getPaginationRowModel,
+  getSortedRowModel,
   useReactTable,
 } from "@tanstack/react-table";
 import styles from "./index.module.css";
@@ -12,14 +15,28 @@ type TableProps<TData> = {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   columns: ColumnDef<TData, any>[];
   data: TData[];
+  defaultSortingState?: { id: string; desc: boolean }[];
 };
 
-export const Table = <TData,>({ columns, data }: TableProps<TData>) => {
+export const Table = <TData,>({
+  columns,
+  data,
+  defaultSortingState,
+}: TableProps<TData>) => {
+  const [sorting, setSorting] = useState<SortingState>(
+    defaultSortingState ?? [],
+  );
+
   const table = useReactTable({
     data,
     columns,
+    state: {
+      sorting,
+    },
+    onSortingChange: setSorting,
     getCoreRowModel: getCoreRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
+    getSortedRowModel: getSortedRowModel(),
   });
 
   return (

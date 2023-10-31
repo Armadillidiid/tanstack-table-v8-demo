@@ -4,12 +4,14 @@ import { columns } from "./data/columns";
 
 function App() {
   const query = useJobs();
-  console
-
   return (
     <div className="my-8">
       {!query.isPending && !query.isError && (
-        <Table data={query.data?.results} columns={columns} />
+        <Table
+          data={query.data?.results}
+          columns={columns}
+          defaultSortingState={[{ id: "position", desc: false }]}
+        />
       )}
     </div>
   );
