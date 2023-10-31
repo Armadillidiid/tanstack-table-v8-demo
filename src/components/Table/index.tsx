@@ -1,30 +1,51 @@
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import {
   ColumnDef,
   SortingState,
+  PaginationState,
   flexRender,
   getCoreRowModel,
   getPaginationRowModel,
   getSortedRowModel,
+  getFilteredRowModel,
   useReactTable,
+  ColumnSort,
 } from "@tanstack/react-table";
 import styles from "./index.module.css";
 import Pagination from "./Pagination";
+import Filter from "./Filter";
 
 type TableProps<TData> = {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   columns: ColumnDef<TData, any>[];
   data: TData[];
-  defaultSortingState?: { id: string; desc: boolean }[];
+  defaultPaginationState?: PaginationState;
+  defaultSortingState?: ColumnSort[];
+  globalFilter?: {
+    value: string;
+    dispatch: (value: string) => void;
+  };
+  children?: React.ReactNode;
 };
 
-export const Table = <TData,>({
+const Table = <TData,>({
   columns,
   data,
+  defaultPaginationState,
   defaultSortingState,
+  globalFilter,
+  children,
 }: TableProps<TData>) => {
   const [sorting, setSorting] = useState<SortingState>(
-    defaultSortingState ?? [],
+    defaultSortingState ?? [{ id: "", desc: false }],
+  );
+
+  const pagination = useMemo<PaginationState>(
+    () => ({
+      pageIndex: defaultPaginationState?.pageIndex ?? 0,
+      pageSize: defaultPaginationState?.pageSize ?? 10,
+    }),
+    [],
   );
 
   const table = useReactTable({
@@ -32,16 +53,23 @@ export const Table = <TData,>({
     columns,
     state: {
       sorting,
+      pagination,
+      globalFilter: globalFilter?.value,
     },
     onSortingChange: setSorting,
+    onGlobalFilterChange: globalFilter?.dispatch,
     getCoreRowModel: getCoreRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
     getSortedRowModel: getSortedRowModel(),
+    getFilteredRowModel: getFilteredRowModel(),
   });
 
   return (
-    <div className="flex flex-col gap-8">
-      <table className={styles.table}>
+    <>
+      {/* SEARCH INPUT */}
+      {children}
+
+      <table>
         <thead>
           {table.getHeaderGroups().map((headerGroup) => (
             <tr key={headerGroup.id}>
@@ -81,6 +109,10 @@ export const Table = <TData,>({
           <Pagination.Goto table={table} options={[10, 20, 30, 40, 50]} />
         </Pagination>
       </div>
-    </div>
+    </>
   );
 };
+
+Table.Filter = Filter;
+
+export default Table;
