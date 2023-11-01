@@ -7,9 +7,8 @@ function App() {
   const query = useJobs();
   const [globalFilter, setGlobalFilter] = useState("");
 
-  const handleFilter = (value: string | number) => {
+  const handleFilter = (value: string | number) =>
     setGlobalFilter(String(value));
-  };
 
   return (
     <div className="my-8 container mx-auto">
