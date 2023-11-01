@@ -51,9 +51,11 @@ const Table = <TData,>({
   const table = useReactTable({
     data,
     columns,
+    initialState: {
+      pagination,
+    },
     state: {
       sorting,
-      pagination,
       globalFilter: globalFilter?.value,
     },
     onSortingChange: setSorting,
