@@ -29,7 +29,7 @@ const Pagination = <T,>({
           <PaginateButton
             key={pageIndex}
             table={table}
-            direction="current"
+            direction="specific"
             page={pageIndex}
           />
         ))}

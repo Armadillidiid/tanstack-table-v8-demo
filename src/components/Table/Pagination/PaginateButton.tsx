@@ -4,7 +4,7 @@ type PaginateButtonProps<T> = {
   table: Table<T>;
 } & (
   | {
-      direction: "current";
+      direction: "specific";
       page: number;
     }
   | {
@@ -51,7 +51,7 @@ const PaginateButton = <T,>(props: PaginateButtonProps<T>) => {
           : ">>"}
       </button>
     );
-  } else if (props.direction === "current") {
+  } else if (props.direction === "specific") {
     return (
       <button
         className={`${
