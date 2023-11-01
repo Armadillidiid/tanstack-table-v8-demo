@@ -58,5 +58,6 @@ export const columns = [
       </a>
     ),
     enableSorting: false, // explicitly disable sorting for this column
+    enableGlobalFilter: false, // explicitly disable global filter for this column
   }),
 ];
